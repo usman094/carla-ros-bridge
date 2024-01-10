@@ -126,7 +126,7 @@ def generate_launch_description():
             launch_arguments={
                 'role_name': launch.substitutions.LaunchConfiguration('role_name')
             }.items()
-        )
+        ),
     ])
     return ld
 

@@ -33,7 +33,11 @@ elif ROS_VERSION == 2:
         license='MIT',
         tests_require=['pytest'],
         entry_points={
-            'console_scripts': ['bridge = carla_ros_bridge.bridge:main'],
+            'console_scripts': [
+            'bridge = carla_ros_bridge.bridge:main',
+            'goal_and_speed_publisher = carla_ros_bridge.goal_and_speed_publisher:main',
+            'carla_vehicle_publisher = carla_ros_bridge.carla_vehicle_publisher:main',
+            ]
         },
         package_dir={'': 'src'},
         package_data={'': ['CARLA_VERSION']},

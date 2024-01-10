@@ -72,6 +72,12 @@ def generate_launch_description():
                 }
             ]
         ),
+        launch_ros.actions.Node(
+            package='carla_ros_bridge',
+            executable='carla_vehicle_publisher',
+            name='carla_vehicle_publisher',
+            output='screen'
+        ),
         launch.actions.ExecuteProcess(
             cmd=["ros2", "topic", "pub", "/carla/available_scenarios",
                  "carla_ros_scenario_runner_types/CarlaScenarioList", ros_topic_msg_string],
@@ -124,6 +130,15 @@ def generate_launch_description():
                 'role_name': launch.substitutions.LaunchConfiguration('role_name'),
                 'scenario_runner_path': launch.substitutions.LaunchConfiguration('scenario_runner_path'),
                 'wait_for_ego': 'True'
+            }.items()
+        ),
+        launch.actions.IncludeLaunchDescription(
+            launch.launch_description_sources.PythonLaunchDescriptionSource(
+                os.path.join(get_package_share_directory(
+                    'carla_manual_control'), 'carla_manual_control.launch.py')
+            ),
+            launch_arguments={
+                'role_name': launch.substitutions.LaunchConfiguration('role_name')
             }.items()
         ),
         launch_ros.actions.Node(
